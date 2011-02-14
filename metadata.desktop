@@ -1,0 +1,17 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=mpdclient
+Type=Service
+ServiceTypes=Plasma/Applet
+Icon=applications-multimedia
+X-Plasma-API=python
+X-Plasma-MainScript=code/main.py
+X-KDE-PluginInfo-Author=Tadeusz Sośnierz
+X-KDE-PluginInfo-Email=tadzikes@gmail.com
+X-KDE-PluginInfo-Name=mpdclient
+X-KDE-PluginInfo-Version=1.0
+X-KDE-PluginInfo-Website=http://plasma.kde.org/
+X-KDE-PluginInfo-Category=Multimedia
+X-KDE-PluginInfo-Depends=
+X-KDE-PluginInfo-License=MIT
+X-KDE-PluginInfo-EnabledByDefault=true
