@@ -16,7 +16,7 @@ class MPDClient(plasmascript.Applet):
  
     def init(self):
         self.setHasConfigurationInterface(False)
-        self.setAspectRatioMode(Plasma.Square)
+        self.setAspectRatioMode(Plasma.IgnoreAspectRatio)
         self.layout = QGraphicsLinearLayout(Qt.Vertical, self.applet)
 
         self.label = Plasma.Label(self.applet)
@@ -39,6 +39,7 @@ class MPDClient(plasmascript.Applet):
 
         currentSong = self.mpd.currentsong()
         title = album = artist = ''
+        str = '<b>'
 
         try:
             title = currentSong['title']
@@ -46,13 +47,13 @@ class MPDClient(plasmascript.Applet):
             title = currentSong['file'].split("/")[-1]
 
         try:
-            str = currentSong['artist'] + ' - ' + title
+            str = str + currentSong['artist'] + ' - ' + title
         except:
-            str = title
+            str = str + title
 
         try:
             album = currentSong['album']
-            str = str + "\n" + album
+            str = str + "</b><br /><i>" + album + "</i>"
         except:
             pass
         
