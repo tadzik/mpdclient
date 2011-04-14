@@ -20,26 +20,37 @@ class MPDClient(plasmascript.Applet):
         self.layout = QGraphicsLinearLayout(Qt.Vertical, self.applet)
 
         self.label = Plasma.Label(self.applet)
+        self.label.setWordWrap(False)
         self.layout.addItem(self.label)
 
         self.mpd = mpd.MPDClient()
-        self.mpd.connect(HOST, PORT)
+        try:
+            self.mpd.connect(HOST, PORT)
+        except:
+            pass
         
         self.timer = QTimer()
         self.timer.connect(self.timer, SIGNAL('timeout()'), self.timeout)
         self.timer.start(1000)
         self.timeout()
 
-        self.resize(300, 100)
-
     def timeout(self):
-        if self.mpd.status()['state'] != 'play':
+        status = ''
+        try:
+            status = self.mpd.status()['state']
+        except:
+            try:
+                self.mpd.connect(HOST, PORT)
+            except:
+                pass
+        if status != 'play':
             self.label.setText('Music stopped')
             return
 
         currentSong = self.mpd.currentsong()
         title = album = artist = ''
-        str = '<b>'
+        longstr = '<b>'
+        str = ''
 
         try:
             title = currentSong['title']
@@ -53,11 +64,10 @@ class MPDClient(plasmascript.Applet):
 
         try:
             album = currentSong['album']
-            str = str + "</b><br /><i>" + album + "</i>"
         except:
             pass
         
-        self.label.setText(str)
+        self.label.setText(str.decode('utf-8')[0:50])
 
 def CreateApplet(parent):
     return MPDClient(parent)
