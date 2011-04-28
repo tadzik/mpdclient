@@ -40,6 +40,7 @@ class MPDClient(plasmascript.Applet):
             status = self.mpd.status()['state']
         except:
             try:
+                self.mpd = mpd.MPDClient()
                 self.mpd.connect(HOST, PORT)
             except:
                 pass
